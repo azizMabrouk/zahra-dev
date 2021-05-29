@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body> 
+        <section class="c-1-50">
+            <figure>
+                <img src="img/info-graphic-2.svg"  class="img-fluid">   
+            </figure>
+            <br>
+            <h2>Title</h2><br><br>
+            <p>description description description description description description description description 
+                description description description description description 
+                description description description description description description description description 
+                description description description description description description description 
+            </p>
+        </section>
+        <section class="c-2-50">
+            <form class="content part-1" id="part-1" method="post" action="#" onsubmit="display2();return false">
+                <h3>
+                    <strong>1/3</strong>
+                    Please fill with your details
+                </h3>
+
+                <input type="text" name="firstname" placeholder="First Name" required>
+                <input type="text" name="lastname" placeholder="Last Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+
+                <div class="custom-select" style="width:100%;margin:10px 0;">
+                    <select required>
+                      <option value="0">Your Town:</option>
+                      <option value="1">Tunis</option>
+                      <option value="2">Bizert</option>
+                      <option value="3">Sfax</option>
+                      <option value="4">Sousse</option>
+                      <option value="5">Nabeul</option>
+                      <option value="6">Gafsa</option>
+                      <option value="7">Tozeur</option>
+                      
+                    </select>
+                  </div>
+
+                <input type="checkbox" id="check" name="accept" value="accept" required>
+                <label for="check"> Please accept our <a href="">Terms and conditions</a></label>
+                <br><br>
+                <hr>
+                <input type="submit" value="Next" >
+
+            </form>
+
+            <form class="content part-2" id="part-2" style="display: none;" action="#" onsubmit="display3();return false">
+                <h3>
+                    <strong>2/3</strong>
+                    Please select an offert
+                </h3>
+
+                <input type="radio" id="ADSL" name="offert" value="ADSL" radio>
+                <label for="ADSL"> ADSL</label><br><br>
+
+                <input type="radio" id="Cle" name="offert" value="cle" >
+                <label for="Cle"> Clé</label><br><br>
+
+                <input type="radio" id="3G" name="offert" value="3G" >
+                <label for="3G"> Box 3G</label><br><br>
+
+                <input type="radio" id="4G" name="offert" value="4G" >
+                <label for="4G"> Box 4G</label><br><br>
+
+                <input type="radio" id="fibreoptique" name="offert" value="fibreoptique" >
+                <label for="fibreoptique"> Fibre optique</label><br>
+
+                <br><br>
+                <hr>
+                
+                <input type="submit" value="Next" >
+
+            </form>
+
+
+            <form class="content part-3" id="part-3" style="display: none;">
+                <h3>
+                    <strong>3/3</strong>
+                    Please Enter Your budget
+                </h3>
+                <input type="number" name="budget" placeholder="Budget" style="width: 90px;" required><label> DT</label>
+               
+                <br><br>
+                <hr>
+
+                <input type="submit" name="submit" value="Submit">
+
+            </form>
+        </section>
+    </body>
+
+
+    <script>
+        var x, i, j, l, ll, selElmnt, a, b, c;
+        
+        x = document.getElementsByClassName("custom-select");
+        l = x.length;
+        for (i = 0; i < l; i++) {
+          selElmnt = x[i].getElementsByTagName("select")[0];
+          ll = selElmnt.length;
+          
+          a = document.createElement("DIV");
+          a.setAttribute("class", "select-selected");
+          a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+          x[i].appendChild(a);
+          
+          b = document.createElement("DIV");
+          b.setAttribute("class", "select-items select-hide");
+          for (j = 1; j < ll; j++) {
+            
+            c = document.createElement("DIV");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function(e) {
+                
+                var y, i, k, s, h, sl, yl;
+                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                sl = s.length;
+                h = this.parentNode.previousSibling;
+                for (i = 0; i < sl; i++) {
+                  if (s.options[i].innerHTML == this.innerHTML) {
+                    s.selectedIndex = i;
+                    h.innerHTML = this.innerHTML;
+                    y = this.parentNode.getElementsByClassName("same-as-selected");
+                    yl = y.length;
+                    for (k = 0; k < yl; k++) {
+                      y[k].removeAttribute("class");
+                    }
+                    this.setAttribute("class", "same-as-selected");
+                    break;
+                  }
+                }
+                h.click();
+            });
+            b.appendChild(c);
+          }
+          x[i].appendChild(b);
+          a.addEventListener("click", function(e) {
+              
+              e.stopPropagation();
+              closeAllSelect(this);
+              this.nextSibling.classList.toggle("select-hide");
+              this.classList.toggle("select-arrow-active");
+            });
+        }
+        function closeAllSelect(elmnt) {
+          
+          var x, y, i, xl, yl, arrNo = [];
+          x = document.getElementsByClassName("select-items");
+          y = document.getElementsByClassName("select-selected");
+          xl = x.length;
+          yl = y.length;
+          for (i = 0; i < yl; i++) {
+            if (elmnt == y[i]) {
+              arrNo.push(i)
+            } else {
+              y[i].classList.remove("select-arrow-active");
+            }
+          }
+          for (i = 0; i < xl; i++) {
+            if (arrNo.indexOf(i)) {
+              x[i].classList.add("select-hide");
+            }
+          }
+        }
+       
+        document.addEventListener("click", closeAllSelect);
+
+
+
+
+        function display2(){
+          document.getElementById('part-1').style.display= "none";
+          document.getElementById('part-2').style.display= "revert";
+        }
+        function display3(){
+          document.getElementById('part-2').style.display= "none";
+          document.getElementById('part-3').style.display= "revert";
+        }
+
+
+
+
+        </script>
+</html>
